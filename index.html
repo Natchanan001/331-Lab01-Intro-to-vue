@@ -21,11 +21,13 @@
         </div>
 
         <div class="product-info">
-          <h1>
-            <a :href="'https://www.camt.cmu.ac.th'">{{ brand + ' ' + product }}</a>
-          </h1>
-          <p v-if="onSale">This product is on sale!</p>
-          <p v-else>This product is not on sale.</p>
+            <h1>
+                <a :href="'https://www.camt.cmu.ac.th'">{{ title }}</a>
+              </h1>
+              
+              <p v-if="saleMessage">{{ saleMessage }}</p>
+              <p v-else>This product is not on sale.</p>
+              
 
           <p v-if="inStock">In Stock</p>
           <p v-else>Out of Stock</p>
@@ -36,12 +38,13 @@
 
           <!-- Color Circles -->
           <div
-            v-for="variant in variants"
-            :key="variant.id"
-            @mouseover="updateImage(variant.image)"
-            class="color-circle"
-            :style="{ backgroundColor: variant.color }"
-          ></div>
+          v-for="(variant, index) in variants"
+          :key="variant.id"
+          @mouseover="updateVariant(index)"
+          class="color-circle"
+          :style="{ backgroundColor: variant.color }"
+        ></div>
+        
 
           <!-- Add To Cart Buttons -->
           <div
