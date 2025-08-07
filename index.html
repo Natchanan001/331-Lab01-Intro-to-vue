@@ -1,75 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Intro SE331</title>
-  <link rel="stylesheet" href="./assets/styles.css" />
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</head>
-
 <body>
-  <div id="app">
-    <div class="nav-bar">
-      <button>Cart({{ cart }})</button>
-    </div>
-
-    <div class="product-display">
-      <div class="product-container">
-
-        <div class="product-image">
-            <img :src="image" :class="{ 'out-of-stock-image': !inStock }" />
-        </div>
-
-        <div class="product-info">
-            <h1>
-                <a :href="'https://www.camt.cmu.ac.th'">{{ title }}</a>
-              </h1>
-              
-              <p v-if="saleMessage">{{ saleMessage }}</p>
-              <p v-else>This product is not on sale.</p>
-              
-
-          <p v-if="inStock">In Stock</p>
-          <p v-else>Out of Stock</p>
-
-          <ul>
-            <li v-for="detail in details" :key="detail">{{ detail }}</li>
-          </ul>
-
-          <!-- Color Circles -->
-          <div
-          v-for="(variant, index) in variants"
-          :key="variant.id"
-          @mouseover="updateVariant(index)"
-          class="color-circle"
-          :style="{ backgroundColor: variant.color }"
-        ></div>
-        
-
-          <!-- Add To Cart Buttons -->
-          <div
-            v-for="variant in variants"
-            :key="variant.id + '-btn'"
-          >
-            {{ variant.color }}
-            <button
-              class="button"
-              :disabled="!inStock"
-              @click="addToCart"
-              :class="{ disabledButton: !inStock }"
-            >
-              Add To Cart
-            </button>
-          </div>
-
-          <button @click="toggleStock" class="button">Toggle Stock</button>
-
-          <p>Sizes: {{ sizes.join(', ') }}</p>
-        </div>
+    <div id="app">
+      <div class="nav-bar">
+        <button>Cart({{ cart }})</button>
       </div>
+  
+      <!-- ส่ง props ชื่อ cart และ event กลับ -->
+      <product-display :cart="cart" @add-to-cart="incrementCart"></product-display>
     </div>
-  </div>
-
-  <script src="./main.js"></script>
-</body>
-</html>
+  
+    <script type="module" src="./main.js" defer></script>
+  </body>
+  
